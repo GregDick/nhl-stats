@@ -1,12 +1,37 @@
 doctype html
-html(lang="en-US")
+html(lang="en-US" ng-app="nhlStats")
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title Angular Addresses
-  body
+    title NHL Stats
+    link(rel='stylesheet' type="text/css" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css')
+  body(ng-controller="Stats as stats")
     .container
-      h1 test
+      h1 NHL Statistics
+      table(class='table table-hover')
+        tr
+          th Team
+          th Division
+          th Wins
+          th Losses
+          th OTLosses
+          th Points
+          th GoalsFor
+          th GoalsAgainst
+          th GoalDiff
+        tr(ng-repeat="team in stats.league | orderBy : filter")
+          td {{team.team}}
+          td {{team.division}}
+          td {{team.wins}}
+          td {{team.losses}}
+          td {{team.otl}}
+          td {{team.p}}
+          td {{team.gf}}
+          td {{team.ga}}
+          td {{team.gdif}}
+      h2 Order By:
+      h4 Wins : "-wins" | Losses : "losses" | OTLosses : "-otl" | Points : "p" | GoalsFor : "-gf" | GoalsAgainst : "ga" | GoalDiff : "gdiff"
+      input(type="text" placeholder="Filter" ng-model="filter")
     script(src="lib/build.js")
     script(src="js/main.js")
